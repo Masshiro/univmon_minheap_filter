@@ -144,6 +144,10 @@ public:
         return storage_condition[k];
     }
 
+    uint32_t get_level_num(){
+        return LEVEL;
+    }
+
 //    void output_list_at_level_k(int k, std::string path_name){
 //        std::ofstream output_file(path_name);
 //        for (int i = 0; i < TOP_K; i++){

@@ -3,6 +3,7 @@
 
 #include "xxhash32.h"
 #include "MinheapFilter.hpp"
+#include "UnivMon.hpp"
 
 const std::string inputFileName = "../test.groundtruth";
 const std::uint32_t TOP_K = 128;
@@ -60,19 +61,37 @@ int main() {
     /*
      *  Test for the functionality of minheapfilter to deduplicate
      * */
-    Control_List<uint32_t, double> testFilter(10, 1);
-    testFilter.insert_element_at_level_k(501, 1, 0);
-    testFilter.insert_element_at_level_k(411, 2, 0);
-    testFilter.insert_element_at_level_k(308, 3, 0);
-    testFilter.insert_element_at_level_k(217, 8, 0);
-//    testFilter.insert_element_at_level_k(103, 9, 0);
-    std::cout << "Original: "<<std::endl;
-    testFilter.print_list_at_level_k(0);
-    testFilter.insert_element_at_level_k(217, 10, 0);
-    std::cout << "The storage condition is: " << testFilter.get_storage_condition_at_level_k(0)<<std::endl;
-    std::cout << "Inserted: "<<std::endl;
-    testFilter.print_list_at_level_k(0);
-    std::cout << "The storage condition is: " << testFilter.get_storage_condition_at_level_k(0)<<std::endl;
+//    Control_List<uint32_t, double> testFilter(10, 1);
+//    testFilter.insert_element_at_level_k(501, 1, 0);
+//    testFilter.insert_element_at_level_k(411, 2, 0);
+//    testFilter.insert_element_at_level_k(308, 3, 0);
+//    testFilter.insert_element_at_level_k(217, 8, 0);
+////    testFilter.insert_element_at_level_k(103, 9, 0);
+//    std::cout << "Original: "<<std::endl;
+//    testFilter.print_list_at_level_k(0);
+//    testFilter.insert_element_at_level_k(217, 10, 0);
+//    std::cout << "The storage condition is: " << testFilter.get_storage_condition_at_level_k(0)<<std::endl;
+//    std::cout << "Inserted: "<<std::endl;
+//    testFilter.print_list_at_level_k(0);
+//    std::cout << "The storage condition is: " << testFilter.get_storage_condition_at_level_k(0)<<std::endl;
+
+    /*
+     *  Test for the basic functionality of UnivMon structure.
+     * */
+    UnivMonSketch univmon(2, 5);
+    univmon.update_filter_at_level_k(501, 1, 0);
+    univmon.update_filter_at_level_k(321, 3, 0);
+    univmon.update_filter_at_level_k(892, 6, 0);
+    univmon.update_filter_at_level_k(930, 12, 0);
+    univmon.update_filter_at_level_k(892, 9, 0);
+
+    univmon.update_filter_at_level_k(2129, 31, 1);
+    univmon.update_filter_at_level_k(3111, 43, 1);
+    univmon.update_filter_at_level_k(4520, 23, 1);
+    univmon.update_filter_at_level_k(6789, 38, 1);
+    univmon.update_filter_at_level_k(8913, 51, 1);
+
+    univmon.display_filter();
 
 
     return 0;
