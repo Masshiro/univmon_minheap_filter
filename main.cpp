@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <limits>
 
 #include "xxhash32.h"
 #include "MinheapFilter.hpp"
@@ -92,6 +93,35 @@ int main() {
     univmon.update_filter_at_level_k(8913, 51, 1);
 
     univmon.display_filter();
+
+    /*
+     *  Test for the for loop
+     * */
+    for (int i = 3; i!= -1; i--){
+        std::cout << "i = " << i <<std::endl;
+    }
+
+    /*
+     * Test for whether bool type can be seen as number of 1 or 0
+     * */
+    bool one_or_zero = 1;
+    std::cout << "BOOL test: "<< one_or_zero<<std::endl;
+    std::cout << "Can be calculated?: " << 10-one_or_zero << std::endl;
+
+    /*
+     *  Test for the limitation of the basic data types
+     * */
+    auto upper_bound = std::numeric_limits<char>::max();
+    auto lower_bound = std::numeric_limits<uint8_t>::lowest();
+    std::cout<<"The upper limit of type uint8_t: " << int(std::numeric_limits<uint8_t>::max()) <<std::endl;
+    std::cout<<"The lower limit of type uint8_t: " << int(lower_bound) <<std::endl;
+    std::cout<<"The upper limit of type char: " << int(std::numeric_limits<char>::max()) <<std::endl;
+    std::cout<<"The lower limit of type char: " << int(std::numeric_limits<char>::lowest()) <<std::endl;
+    std::cout<<"The upper limit of type double: " << double(std::numeric_limits<double>::max()) <<std::endl;
+    std::cout<<"The lower limit of type double: " << double(std::numeric_limits<double>::lowest()) <<std::endl;
+    std::cout<<"The upper limit of type float: " << float(std::numeric_limits<float>::max()) <<std::endl;
+    std::cout<<"The lower limit of type float: " << float(std::numeric_limits<float>::lowest()) <<std::endl;
+
 
 
     return 0;
