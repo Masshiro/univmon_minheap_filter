@@ -94,6 +94,8 @@ int main() {
 
     univmon.display_filter();
 
+    univmon.display_filter_at_level_k(0);
+
     /*
      *  Test for the for loop
      * */
@@ -111,16 +113,14 @@ int main() {
     /*
      *  Test for the limitation of the basic data types
      * */
-    auto upper_bound = std::numeric_limits<char>::max();
-    auto lower_bound = std::numeric_limits<uint8_t>::lowest();
-    std::cout<<"The upper limit of type uint8_t: " << int(std::numeric_limits<uint8_t>::max()) <<std::endl;
-    std::cout<<"The lower limit of type uint8_t: " << int(lower_bound) <<std::endl;
-    std::cout<<"The upper limit of type char: " << int(std::numeric_limits<char>::max()) <<std::endl;
-    std::cout<<"The lower limit of type char: " << int(std::numeric_limits<char>::lowest()) <<std::endl;
-    std::cout<<"The upper limit of type double: " << double(std::numeric_limits<double>::max()) <<std::endl;
-    std::cout<<"The lower limit of type double: " << double(std::numeric_limits<double>::lowest()) <<std::endl;
-    std::cout<<"The upper limit of type float: " << float(std::numeric_limits<float>::max()) <<std::endl;
-    std::cout<<"The lower limit of type float: " << float(std::numeric_limits<float>::lowest()) <<std::endl;
+//    std::cout<<"The upper limit of type uint8_t: " << int(std::numeric_limits<uint8_t>::max()) <<std::endl;
+//    std::cout<<"The lower limit of type uint8_t: " << int(lower_bound) <<std::endl;
+//    std::cout<<"The upper limit of type char: " << int(std::numeric_limits<char>::max()) <<std::endl;
+//    std::cout<<"The lower limit of type char: " << int(std::numeric_limits<char>::lowest()) <<std::endl;
+//    std::cout<<"The upper limit of type double: " << double(std::numeric_limits<double>::max()) <<std::endl;
+//    std::cout<<"The lower limit of type double: " << double(std::numeric_limits<double>::lowest()) <<std::endl;
+//    std::cout<<"The upper limit of type float: " << float(std::numeric_limits<float>::max()) <<std::endl;
+//    std::cout<<"The lower limit of type float: " << float(std::numeric_limits<float>::lowest()) <<std::endl;
 
 
 

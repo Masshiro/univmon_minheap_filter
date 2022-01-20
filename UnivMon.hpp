@@ -35,6 +35,15 @@ public:
     void update_filter_at_level_k(uint32_t ID, double card, int k){
         filter.insert_element_at_level_k(ID, card, k);
     }
+
+    void display_filter_at_level_k(uint32_t k){
+        std::pair<uint32_t, double>* ptr_level_k;
+        ptr_level_k = filter.get_elements_at_level_k(k);
+        std::cout << "---------- Using pointer method ----------" << std::endl;
+        for (int j = 0; j < filter.get_level_capacity(); j++){
+            std::cout << "ID:\t" << ptr_level_k[j].first <<"\t\t Cardinality:\t"<<ptr_level_k[j].second<<std::endl;
+        }
+    }
 };
 
 #endif //UNIVMON_MINHEAP_FILTER_UNIVMON_HPP

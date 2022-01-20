@@ -148,6 +148,22 @@ public:
         return LEVEL;
     }
 
+    std::pair<K, V>* get_elements_at_level_k(uint32_t k){
+        // Build a new one then return it
+//        std::pair<K, V>* ptr_level_k = new std::pair<K, V>[TOP_K];
+//        for (int j=0; j < TOP_K; j++){
+//            ptr_level_k[j].first = control_list[k][j].first;
+//            ptr_level_k[j].second = control_list[k][j].second;
+//        }
+
+        // Return the existing one directly
+        return control_list[k];
+    }
+
+    uint32_t get_level_capacity(){
+        return TOP_K;
+    }
+
 //    void output_list_at_level_k(int k, std::string path_name){
 //        std::ofstream output_file(path_name);
 //        for (int i = 0; i < TOP_K; i++){
