@@ -26,7 +26,7 @@ uint32_t get_length_of_ones(uint32_t a, uint32_t max_len) {
 template<class K, class V>
 struct cmpbyValue {
     bool operator() (const std::pair<K, V>& p1, std::pair<K, V>& p2){
-        return p1.second < p2.second;
+        return p1.second > p2.second;
     }
 };
 
@@ -75,17 +75,20 @@ public:
         delete [] storage_condition;
     }
 
+    /*
+     *  When sorting the list, we treat the list as two separate parts which are
+     *  'occupied' and 'not-occupied' respectively.
+     *  occupied index range: 0 --> storage_condition -1
+     *  not-occupied index range: storage_condition --> TOP_K -1
+     * */
     void sort_list_at_level_k(int k){
         std::vector <std::pair<K, V> > tmp_list; //[TOP_K];
-        for (int i = 0; i < TOP_K; i++){
-            // tmp_list[i].first = control_list[k][i].first;
-            // tmp_list[i].second = control_list[k][i].second;
 
+        for (int i =0; i < storage_condition[k]; i++){
             tmp_list.push_back(std::pair<K, V> (control_list[k][i].first, control_list[k][i].second));
-            // std::pair<int, double> (control_list[k][i].first, control_list[k][i].second)
         }
         sort(tmp_list.begin(), tmp_list.end(), cmpbyValue<K, V>());
-        for (int i = 0; i < TOP_K; i++){
+        for (int i =0; i < storage_condition[k]; i++){
             control_list[k][i].first = tmp_list[i].first;
             control_list[k][i].second = tmp_list[i].second;
         }
@@ -95,6 +98,7 @@ public:
         /*  Condition 1: The same hash has been inserted.   */
         for (int i = 0; i < storage_condition[k]; i++){
             if (control_list[k][i].first == ID){
+//                std::cout << "Hash "<< ID << " has been inserted at level "<<k << std::endl;
                 control_list[k][i].second = count;
                 sort_list_at_level_k(k);
                 return;
@@ -104,6 +108,7 @@ public:
         /*  Condition 2: The hash value is totally new here.    */
         // List is not full yet
         if (storage_condition[k] < TOP_K){
+//            std::cout<<"Inserting <"<<ID<<", "<<count<<">, NOT full"<<std::endl;
             control_list[k][storage_condition[k]].first = ID;
             control_list[k][storage_condition[k]].second = count;
             storage_condition[k]++;
@@ -117,10 +122,11 @@ public:
             else{
                 sort_list_at_level_k(k);
                 // Insert when the incoming pkt has greater cardinality
-                if (count > control_list[k][0].second)
+                if (count > control_list[k][TOP_K-1].second)
                 {
-                    control_list[k][0].first = ID;
-                    control_list[k][0].second = count;
+//                    std::cout<<"Inserting <"<<ID<<", "<<count<<">, full"<<std::endl;
+                    control_list[k][TOP_K-1].first = ID;
+                    control_list[k][TOP_K-1].second = count;
                 }
                 // or just ignore it.
             }
