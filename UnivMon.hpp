@@ -70,13 +70,38 @@ public:
 
         // For other levels
         for (int i =m_level_count-2; i != -1; i-- ){
-            std::cout << "\n----- Level "<<i<<" -----"<<std::endl;
+//            std::cout << "\n----- Level "<<i<<" -----"<<std::endl;
             below_level_moment *=2;
             ptr_level_k = filter.get_elements_at_level_k(i);        // get current level's elements
             for (int j=0; j < filter.get_storage_condition_at_level_k(i); j++){
                 double coeff = 1 - 2 * univmon::get_hash_bit(ptr_level_k[j].first, i+1);
                 below_level_moment += coeff * f(ptr_level_k[j].second, power);
-                std::cout << coeff <<' '<<f(ptr_level_k[j].second, power)<<std::endl;
+//                std::cout << coeff <<' '<<f(ptr_level_k[j].second, power)<<std::endl;
+            }
+            moment_for_each_level.insert(moment_for_each_level.begin(), below_level_moment);
+        }
+
+        return below_level_moment;
+    }
+
+    double calculate_moment_entropy(double (*f)(double)) {
+        double below_level_moment = 0.0;
+        std::pair<uint32_t, double>* ptr_level_k;
+
+        // For level l (0...l-1)
+        ptr_level_k = filter.get_elements_at_level_k(m_level_count-1);
+        for (int i=0; i < filter.get_storage_condition_at_level_k(m_level_count -1); i++){
+            below_level_moment += f(ptr_level_k[i].second);
+            moment_for_each_level.insert(moment_for_each_level.begin(), below_level_moment);
+        }
+
+        // For other levels
+        for (int i =m_level_count-2; i != -1; i-- ){
+            below_level_moment *=2;
+            ptr_level_k = filter.get_elements_at_level_k(i);        // get current level's elements
+            for (int j=0; j < filter.get_storage_condition_at_level_k(i); j++){
+                double coeff = 1 - 2 * univmon::get_hash_bit(ptr_level_k[j].first, i+1);
+                below_level_moment += coeff * f(ptr_level_k[j].second);
             }
             moment_for_each_level.insert(moment_for_each_level.begin(), below_level_moment);
         }

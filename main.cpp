@@ -138,12 +138,14 @@ int main() {
     sketch.update(2129, 40);
     sketch.update(892, 4);
     sketch.update(930, 14);
-    sketch.update(501, 21);
+//    sketch.update(501, 21);
 
     //  Display the filter first
-    sketch.display_filter();
+//    sketch.display_filter();
     std::cout<<std::endl;
     std::cout << "Moment power 1: " << sketch.calculate_moment_power(univmon::G_sum, 1)<<std::endl;
+    std::cout<<"----> Entropy: \t"<<sketch.calculate_moment_entropy(univmon::G_entropy)<<std::endl;
+    std::cout<<"----* Entropy: \t"<<sketch.calculate_moment_power(univmon::G_sum, 10)<<std::endl;
 
     sketch.display_moment_for_each_level();
 

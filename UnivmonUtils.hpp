@@ -14,6 +14,9 @@ namespace univmon{
 //--------------------------
 // Calculate moments: G-sum functions
     double G_sum(double base, uint8_t power){
+        if (power == 10){
+            return base * std::log(base);
+        }
         return std::pow(base, power);
     }
 
